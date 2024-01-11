@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@section js
+{
+    <script type="text/javascript">
+        /*
+        navigator.geolocation.getCurrentPosition(function (data) {
+            console.log(data);
+            alert(data);
+        });*/
+        var x = document.getElementById("demo");
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            x.innerHTML = "Latitude: " + position.coords.latitude +
+                "<br>Longitude: " + position.coords.longitude;
+        }
+
+        function showPositionOnMap(position) {
+            var win = window.open("http://maps.google.com/maps?q=loc:" + position.coords.latitude.toString() + "," + position.coords.longitude.toString(), "_blank");
+            return false;
+        }
+
+        function getLocationOnMap() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPositionOnMap);
+            }
+            else{
+                x.innerText = "Geolocation is not supported by this browser";
+            }
+        }
+    </script>
+}
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>Click the button to get your coordinations</p>
+    <button onclick="getLocation()">Try</button>
+    <button onclick="getLocationOnMap()">Try</button>
+    <p id="demo"></p>
+
+</div>
